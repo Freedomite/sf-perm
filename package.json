@@ -1,0 +1,15 @@
+{
+    "name": "cli-test-1",
+    "version": "1.0.0",
+    "bin": {
+        "sf-perm": "./index.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "type": "module",
+    "dependencies": {
+        "commander": "^15.0.0",
+        "fast-xml-parser": "^5.8.0"
+    }
+}
