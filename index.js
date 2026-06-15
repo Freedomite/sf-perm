@@ -11,6 +11,7 @@ async function handlePermissions(options){
 
     const parser = new XMLParser();
     let permissionJson = parser.parse(file);
+    //console.log(JSON.stringify(permissionJson));
     // fields 
     let fieldsToKeep = [];
     for (let fieldPermission of permissionJson.PermissionSet.fieldPermissions){
@@ -27,6 +28,19 @@ async function handlePermissions(options){
         }
     }
     permissionJson.PermissionSet.fieldPermissions = fieldsToKeep;
+    
+    // objects 
+    let objectsToKeep = [];
+    for (let objectPermission of permissionJson.PermissionSet.objectPermissions){
+        let objectName = objectPermission.object;
+
+        let objectPath = permissionLoc[0] + '\\objects\\' + objectName + '\\' + objectName + '.object-meta.xml';
+        let checkFile = await openFile(objectPath);
+        if (checkFile){
+            objectsToKeep.push(objectPermission);
+        }
+    }
+    permissionJson.PermissionSet.objectPermissions = objectsToKeep;
 
     const builder = new XMLBuilder({
         format: true,            // Enables pretty printing
